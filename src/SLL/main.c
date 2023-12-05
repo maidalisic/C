@@ -1,53 +1,49 @@
-#include <stdio.h>
-
-#include "SLL.h"
+#include "SCLA.h"
 
 int main() {
-    Node* list;
+    Node* head = NULL;
 
-    initList(&list); // Initialisiert die Liste
+    // Initialisiere die Liste
+    initList(&head);
+    printf("Initialisierte Liste: ");
+    writeList(head);
 
-    // Test 1: Leere Liste
-    printf("Test 1: Leere Liste\n");
-    writeList(list);
+    // Füge Elemente hinzu
+    printf("\nFüge Elemente hinzu (3, 2, 1 am Ende): \n");
+    appendValue(head, 3);
+    appendValue(head, 2);
+    appendValue(head, 1);
+    writeList(head);
 
-    // Test 2: Einzelnes Element hinzufügen und entfernen
-    printf("\nTest 2: Ein Element hinzufügen und entfernen\n");
-    appendValue(&list, 1);
-    writeList(list);
-    disposeList(&list);
-    writeList(list);
+    // Füge Elemente am Anfang hinzu
+    printf("\nFüge Elemente am Anfang hinzu (4, 5): \n");
+    prependValue(head, 4);
+    prependValue(head, 5);
+    writeList(head);
 
-    initList(&list); // Re-initialisiert die Liste nach dem Löschen
+    // Überprüfe die Existenz von Werten
+    printf("\nÜberprüfung auf Werte (2 und 6): \n");
+    printf("Enthält 2: %s\n", containsValue(head, 2) ? "Ja" : "Nein");
+    printf("Enthält 6: %s\n", containsValue(head, 6) ? "Ja" : "Nein");
 
-    // Test 3: Mehrere Elemente hinzufügen
-    printf("\nTest 3: Mehrere Elemente hinzufügen\n");
-    appendValue(&list, 1);
-    appendValue(&list, 2);
-    appendValue(&list, 3);
-    writeList(list);
+    // Kehre die Liste um
+    printf("\nListe umkehren: \n");
+    invertList(&head);
+    writeList(head);
 
-    // Test 4: Liste umkehren
-    printf("\nTest 4: Liste umkehren\n");
-    invertList(&list);
-    writeList(list);
+    // Liste erneut umkehren
+    printf("\nListe erneut umkehren: \n");
+    invertList(&head);
+    writeList(head);
 
-    // Test 5: Suchfunktion
-    printf("\nTest 5: Suchfunktion\n");
-    printf("Contains 2 = %d\n", containsValue(list, 2) ? 1 : 0);
-    printf("Contains 4 = %d\n", containsValue(list, 4) ? 1 : 0);
-
-    // Test 6: Speicherverwaltung
-    printf("\nTest 6: Speicherverwaltung\n");
-    disposeList(&list);
-    initList(&list); // Re-initialisiert die Liste
-
-    // Test 7: Element am Anfang der Liste hinzufügen
-    printf("\nTest 7: Element am Anfang der Liste hinzufügen\n");
-    prependValue(&list, 0);
-    writeList(list);
-
-    disposeList(&list);
+    // Speicherverwaltung
+    printf("\nSpeicherverwaltung: Lösche Liste\n");
+    disposeList(&head);
+    if (head == NULL) {
+        printf("Liste erfolgreich gelöscht.\n");
+    } else {
+        printf("Fehler beim Löschen der Liste.\n");
+    }
 
     return 0;
 }

@@ -4,8 +4,8 @@ project(SLL)
 
 add_executable(SLL
         main.c
-        SLL.c
-        SLL.h
+        SCLA.c
+        SCLA.h
 )
 
 target_compile_options(SLL PUBLIC -Wall -Werror)
