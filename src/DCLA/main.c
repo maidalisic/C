@@ -1,4 +1,4 @@
-#include "SCLA.h"
+#include "DCLA.h"
 
 int main() {
     Node* head = NULL;
@@ -8,11 +8,11 @@ int main() {
     printf("Initialisierte Liste: ");
     writeList(head);
 
-    // Füge Elemente hinzu
-    printf("\nFüge Elemente hinzu (3, 2, 1 am Ende): \n");
-    appendValue(head, 3);
-    appendValue(head, 2);
+    // Füge Elemente am Ende hinzu
+    printf("\nFüge Elemente hinzu (1, 2, 3 am Ende): \n");
     appendValue(head, 1);
+    appendValue(head, 2);
+    appendValue(head, 3);
     writeList(head);
 
     // Füge Elemente am Anfang hinzu
@@ -25,16 +25,6 @@ int main() {
     printf("\nÜberprüfung auf Werte (2 und 6): \n");
     printf("Enthält 2: %s\n", containsValue(head, 2) ? "Ja" : "Nein");
     printf("Enthält 6: %s\n", containsValue(head, 6) ? "Ja" : "Nein");
-
-    // Kehre die Liste um
-    printf("\nListe umkehren: \n");
-    invertList(&head);
-    writeList(head);
-
-    // Liste erneut umkehren
-    printf("\nListe erneut umkehren: \n");
-    invertList(&head);
-    writeList(head);
 
     // Speicherverwaltung
     printf("\nSpeicherverwaltung: Lösche Liste\n");
