@@ -1,71 +1,70 @@
-# Double Circular Linked List (DCLA) in C
+## Aufgabenstellung: Implementierung eines binären Baums
 
-## Aufgabenstellung
+In dieser Aufgabenstellung geht es darum, eine C-Programm zu entwickeln, das die Implementierung eines binären Baums ermöglicht. Ein binärer Baum ist eine Datenstruktur, die aus Knoten besteht, wobei jeder Knoten höchstens zwei Kindknoten hat: einen linken und einen rechten.
 
-Implementiere eine Double Circular Linked List (DCLA) in C. Die Implementierung soll folgende Funktionalitäten bieten:
+### Aufgaben
 
-1. **Initialisierung einer Liste**: Erstelle eine zirkuläre Liste mit einem Sentinel-Knoten (Kopfknoten), der sowohl `next` als auch `prev` Zeiger enthält.
-2. **Hinzufügen von Elementen**:
-   - Am Ende der Liste (Append).
-   - Am Anfang der Liste (Prepend).
-3. **Suche in der Liste**: Prüfe, ob ein bestimmtes Element in der Liste vorhanden ist.
-4. **Ausgabe der Liste**: Gib die Elemente der Liste in der Konsole aus.
-5. **Entfernen aller Elemente**: Lösche alle Elemente in der Liste und gebe den Speicher frei.
+1. Implementieren Sie die folgenden Funktionen zur Arbeit mit einem binären Baum:
 
-## Implementierung
+   - `initTree(Node** root)`: Diese Funktion initialisiert den Baum, indem sie die Wurzel (root) auf `NULL` setzt.
 
-Die Implementierung erfolgt in C unter Verwendung von Strukturen für die Knoten und Funktionen für die oben genannten Funktionalitäten. Jeder Knoten in der Liste hat zwei Zeiger: `next`, der auf den nächsten Knoten zeigt, und `prev`, der auf den vorherigen Knoten zeigt. Der Sentinel-Knoten dient als Ankerpunkt für die Liste und vereinfacht die Handhabung von Operationen am Anfang und am Ende der Liste.
+   - `addValue(Node** root, int value)`: Diese Funktion fügt einen Wert in den Baum ein. Beachten Sie, dass der Baum immer sortiert bleibt, dh Werte, die kleiner sind als der Wert eines Knotens, gehen in den linken Teilbaum, und Werte, die größer sind, gehen in den rechten Teilbaum.
 
-### Wichtige Funktionen:
+   - `writeTreeInOrder(Node* root)`: Diese Funktion gibt den Baum in-order aus, was bedeutet, dass die Werte in aufsteigender Reihenfolge ausgegeben werden.
 
-- `initList`: Initialisiert die Liste mit einem Sentinel-Knoten.
-- `appendValue`: Fügt einen neuen Knoten am Ende der Liste hinzu.
-- `prependValue`: Fügt einen neuen Knoten am Anfang der Liste hinzu.
-- `containsValue`: Überprüft, ob ein bestimmter Wert in der Liste vorhanden ist.
-- `writeList`: Gibt die Werte der Liste in der Konsole aus.
-- `disposeList`: Gibt den Speicher aller Knoten in der Liste frei.
+   - `prettyPrintTree(Node* root, int level)`: Diese Funktion gibt den Baum in einer schönen Baumstruktur aus, wobei die Einrückungsebene für die Darstellung verwendet wird.
+
+   - `containsValue(Node* root, int value)`: Diese Funktion überprüft, ob ein bestimmter Wert im Baum vorhanden ist, und gibt `true` zurück, wenn der Wert gefunden wurde, andernfalls `false`.
+
+   - `containsValueItr(Node* root, int value)`: Diese Funktion überprüft iterativ, ob ein bestimmter Wert im Baum vorhanden ist, und gibt `true` zurück, wenn der Wert gefunden wurde, andernfalls `false`.
+
+   - `disposeTree(Node* root)`: Diese Funktion löscht den Baum und gibt den damit verbundenen Speicher frei.
+
+2. Implementieren Sie in der `main`-Funktion die Verwendung der oben genannten Funktionen, um einen binären Baum zu erstellen, Werte hinzuzufügen, den Baum auszugeben und zu überprüfen, ob bestimmte Werte im Baum vorhanden sind.
+
+3. Testen Sie Ihr Programm, indem Sie verschiedene Werte hinzufügen und die Ausgabe überprüfen, um sicherzustellen, dass der Baum korrekt funktioniert.
 
 ---
 
 ### C-Implementierung (Beispiel)
 
 ```c
-#include "DCLA.h"
+#include "Tree.h"
 
 int main() {
-    Node* head = NULL;
+    Node* root = NULL;
 
-    // Initialisiere die Liste
-    initList(&head);
-    printf("Initialisierte Liste: ");
-    writeList(head);
+    // Initialisiere den Baum
+    initTree(&root);
 
-    // Füge Elemente am Ende hinzu
-    printf("\nFüge Elemente hinzu (1, 2, 3 am Ende): \n");
-    appendValue(head, 1);
-    appendValue(head, 2);
-    appendValue(head, 3);
-    writeList(head);
-
-    // Füge Elemente am Anfang hinzu
-    printf("\nFüge Elemente am Anfang hinzu (4, 5): \n");
-    prependValue(head, 4);
-    prependValue(head, 5);
-    writeList(head);
-
-    // Überprüfe die Existenz von Werten
-    printf("\nÜberprüfung auf Werte (2 und 6): \n");
-    printf("Enthält 2: %s\n", containsValue(head, 2) ? "Ja" : "Nein");
-    printf("Enthält 6: %s\n", containsValue(head, 6) ? "Ja" : "Nein");
-
-    // Speicherverwaltung
-    printf("\nSpeicherverwaltung: Lösche Liste\n");
-    disposeList(&head);
-    if (head == NULL) {
-        printf("Liste erfolgreich gelöscht.\n");
-    } else {
-        printf("Fehler beim Löschen der Liste.\n");
+    // Füge einige Werte hinzu
+    int valuesToAdd[] = {5, 3, 8, 1, 6, 2, 7, 4, 9};
+    for (int i = 0; i < sizeof(valuesToAdd) / sizeof(valuesToAdd[0]); ++i) {
+        addValue(&root, valuesToAdd[i]);
     }
+
+    // Gib den Baum in-order aus (sollte sortiert sein)
+    printf("Baum in-order: ");
+    writeTreeInOrder(root);
+    printf("\n");
+
+    // Schöne Darstellung des Baums
+    printf("Schöne Darstellung des Baums:\n");
+    prettyPrintTree(root);
+
+    // Überprüfe, ob bestimmte Werte im Baum enthalten sind
+    int valuesToCheck[] = {4, 0};
+    for (int i = 0; i < sizeof(valuesToCheck) / sizeof(valuesToCheck[0]); ++i) {
+        printf("Enthält %d: %s\n", valuesToCheck[i], containsValue(root, valuesToCheck[i]) ? "Ja" : "Nein");
+    }
+
+    // Iterative Überprüfung, ob bestimmte Werte im Baum enthalten sind
+    for (int i = 0; i < sizeof(valuesToCheck) / sizeof(valuesToCheck[0]); ++i) {
+        printf("Enthält (iterativ) %d: %s\n", valuesToCheck[i], containsValueItr(root, valuesToCheck[i]) ? "Ja" : "Nein");
+    }
+
+    // Lösche den Baum und gib den Speicher frei
+    disposeTree(root);
 
     return 0;
 }
